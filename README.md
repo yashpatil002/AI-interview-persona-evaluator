@@ -1,50 +1,106 @@
 # 🎯 AI Interview Persona Evaluator
 
-> Built for Talview JD — AI interviewer persona framework + LLM scoring rubrics
-
-## What it does
-
-- Input job role + candidate transcript
-- Select interviewer persona (Technical / HR / Executive / Sales)
-- Claude evaluates across 5 dimensions using prompt-engineered rubrics
-- Dashboard: weighted overall score, per-dimension gauges, friction points, strengths, coaching tip
-
-## Dimensions scored
-
-| Dimension | What it measures |
-|-----------|-----------------|
-| Relevance | Answer actually addresses the question + role |
-| Clarity | Logical flow, no rambling, easy to follow |
-| Tone | Professionalism, warmth, appropriateness |
-| Structure | STAR / narrative structure, conciseness |
-| Confidence | Assertive language, ownership, no hedging |
-
-## Persona weight system
-
-Each persona re-weights dimensions to match interviewer priorities:
-- **Technical** → Relevance-heavy (35%)
-- **HR** → Tone-heavy (30%)
-- **Executive** → Confidence + Structure (25% each)
-- **Sales** → Tone + Confidence (55% combined)
-
-## Setup
-
-```bash
-pip install -r requirements.txt
-export ANTHROPIC_API_KEY=your_key_here
-streamlit run app.py
-```
-
-## Stack
-
-- Streamlit (UI)
-- Anthropic Claude API (claude-sonnet-4-20250514)
-- Prompt-engineered JSON rubric (zero fine-tuning)
+> GenAI-powered candidate response evaluator using prompt-engineered LLM scoring rubrics — built to simulate enterprise hiring persona frameworks.
 
 ---
 
-## Resume headline
+## What It Does
 
-> Built GenAI candidate response evaluator using prompt engineering + LLM scoring rubrics;
-> simulated enterprise hiring persona framework across 4 interviewer archetypes with
-> weighted multi-dimension scoring dashboard
+- Paste a **job role** + **candidate interview transcript**
+- Select an **interviewer persona** (Technical / HR / Executive / Sales)
+- LLM evaluates response across **5 dimensions** using custom prompt-engineered rubrics
+- Dashboard shows **weighted overall score**, per-dimension breakdown, gauge bars, friction points, strengths, and a coaching tip
+
+---
+
+## Tech Stack
+
+| Layer | Tool |
+|-------|------|
+| UI | Streamlit |
+| LLM | Groq API — `llama-3.3-70b-versatile` |
+| Eval | Prompt-engineered JSON rubric (zero fine-tuning) |
+| Secrets | Streamlit `st.secrets` |
+
+---
+
+## Scoring Dimensions
+
+| Dimension | What It Measures |
+|-----------|-----------------|
+| **Relevance** | Answer addresses the question + role context |
+| **Clarity** | Logical flow, no rambling, easy to follow |
+| **Tone** | Professionalism, warmth, appropriateness |
+| **Structure** | STAR-like narrative, conciseness |
+| **Confidence** | Assertive language, ownership, no hedging |
+
+---
+
+## Persona Weight System
+
+Each persona re-weights dimensions to match interviewer priorities:
+
+| Persona | Priority |
+|---------|----------|
+| **Technical Interviewer** | Relevance-heavy (35%) |
+| **HR / Culture Fit** | Tone-heavy (30%) |
+| **Executive / Leadership** | Confidence + Structure (25% each) |
+| **Sales / Client-Facing** | Tone + Confidence (55% combined) |
+
+---
+
+## Setup
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/YOUR_USERNAME/ai-interview-persona-evaluator.git
+cd ai-interview-persona-evaluator
+```
+
+### 2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Get a free Groq API key
+→ console.groq.com — no credit card required
+
+### 4. Create secrets file
+
+**Windows:** Create folder + file at:
+```
+C:\Users\YOUR_USERNAME\.streamlit\secrets.toml
+```
+
+**Mac/Linux:**
+```bash
+mkdir -p ~/.streamlit
+nano ~/.streamlit/secrets.toml
+```
+
+**Contents:**
+```toml
+GROQ_API_KEY = "gsk_your_key_here"
+```
+
+### 5. Run
+```bash
+streamlit run app.py
+```
+
+---
+
+## ⚠️ Important — Never Commit Your Key
+
+Make sure `.streamlit/secrets.toml` is in `.gitignore`:
+```
+.streamlit/secrets.toml
+```
+
+GitHub will block pushes if it detects an API key in your commits.
+
+---
+
+## Resume Headline
+
+> Built GenAI candidate response evaluator using prompt engineering + LLM scoring rubrics (Groq/Llama 3.3); simulated enterprise hiring persona framework across 4 interviewer archetypes with weighted multi-dimension scoring dashboard
